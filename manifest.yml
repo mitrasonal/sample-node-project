@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: mydeploy
+spec:
+   replicas: 2
+   selector:
+      matchLabels:
+         name: deployment
+         app: appe_nod
+   template: 
+      metadata: 
+         name: testpod
+         labels: 
+            name: deployment
+            app: appe_nod
+      spec: 
+         containers:
+            - name: c00
+              image: mitrasonal/app_node:latest
+              ports:
+                - containerPort: 3005
