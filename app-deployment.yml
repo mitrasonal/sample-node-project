@@ -1,22 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-   name: mydeploy
+   name: my-app
 spec:
    replicas: 2
    selector:
       matchLabels:
          name: deployment
-         app: appe_nod
+         app: my-app
    template: 
       metadata: 
-         name: testpod
          labels: 
             name: deployment
-            app: appe_nod
+            app: my-app
       spec: 
          containers:
-            - name: c00
-              image: mitrasonal/app_node:latest
+            - name: my-app
+              image: mitrasonal/my-app:v1
               ports:
                 - containerPort: 3005
+              env: 
+                - name: MONGO_URL
+                  value: "mongodb://admin:password@mongo:27017/mydatabase?authSource=admin"
+                - name: REDIS_URL
+                  value: "redis://redis:6379"
